@@ -1,13 +1,16 @@
 #pragma once
 
 #include <windows.h>
-#include <memory>
 
 class IPlugin;
+
+using DestroyPluginFn = void(*)(IPlugin*);
 
 struct PluginHandle
 {
     HMODULE library = nullptr;
 
     IPlugin* instance = nullptr;
+
+    DestroyPluginFn destroy = nullptr;
 };
