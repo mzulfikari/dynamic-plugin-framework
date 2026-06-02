@@ -2,6 +2,8 @@ add_library(runtime STATIC
     src/PluginLoader.cpp
     src/PluginManager.cpp
     src/PluginRegistry.cpp
+    src/PluginScanner.cpp
+    src/CommandRegistry.cpp
 )
 
 target_include_directories(runtime
