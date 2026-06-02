@@ -1,24 +1,13 @@
 #include "runtime/CommandRegistry.h"
 
-bool CommandRegistry::add(
-    std::unique_ptr<ICommand> command
-)
+void CommandRegistry::add(std::unique_ptr<ICommand> cmd)
 {
-    auto name =
-        command->getName();
-
-    return commands.emplace(
-        name,
-        std::move(command)
-    ).second;
+    commands[cmd->name()] = std::move(cmd);
 }
 
-ICommand* CommandRegistry::find(
-    const std::string& name
-)
+ICommand* CommandRegistry::find(const std::string& name)
 {
-    auto it =
-        commands.find(name);
+    auto it = commands.find(name);
 
     if (it == commands.end())
     {

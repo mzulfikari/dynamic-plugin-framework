@@ -9,9 +9,11 @@ public:
 
     virtual ~ICommand() = default;
 
-    virtual std::string getName() const = 0;
+    virtual std::string name() const = 0;
 
-    virtual double execute(
-        const std::vector<double>& args
+    virtual std::string description() const = 0;
+
+    virtual int execute(
+        const std::vector<int>& args
     ) = 0;
 };

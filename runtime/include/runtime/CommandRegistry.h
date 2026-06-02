@@ -1,7 +1,8 @@
 #pragma once
 
-#include <memory>
 #include <string>
+#include <vector>
+#include <memory>
 #include <unordered_map>
 
 #include "runtime/ICommand.h"
@@ -9,19 +10,10 @@
 class CommandRegistry
 {
 public:
+    void add(std::unique_ptr<ICommand> cmd);
 
-    bool add(
-        std::unique_ptr<ICommand> command
-    );
-
-    ICommand* find(
-        const std::string& name
-    );
+    ICommand* find(const std::string& name);
 
 private:
-
-    std::unordered_map<
-        std::string,
-        std::unique_ptr<ICommand>
-    > commands;
+    std::unordered_map<std::string, std::unique_ptr<ICommand>> commands;
 };
