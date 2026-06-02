@@ -36,6 +36,11 @@ public:
 
     std::size_t size() const;
 
+    std::unordered_map<
+        std::string,
+        PluginHandle
+    >& getAll();
+
     const std::unordered_map<
         std::string,
         PluginHandle

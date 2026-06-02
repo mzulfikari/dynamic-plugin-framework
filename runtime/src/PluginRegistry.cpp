@@ -15,7 +15,7 @@ bool PluginRegistry::contains(
     const std::string& name
 ) const
 {
-    return plugins.contains(name);
+    return plugins.find(name) != plugins.end();
 }
 
 PluginHandle* PluginRegistry::find(
@@ -66,6 +66,14 @@ bool PluginRegistry::empty() const
 std::size_t PluginRegistry::size() const
 {
     return plugins.size();
+}
+
+std::unordered_map<
+    std::string,
+    PluginHandle
+>& PluginRegistry::getAll()
+{
+    return plugins;
 }
 
 const std::unordered_map<

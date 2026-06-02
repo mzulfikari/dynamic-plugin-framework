@@ -1,18 +1,18 @@
-#include "runtime/PluginLoader.h"
+#pragma once
 
-#include <windows.h>
-#include <stdexcept>
+#include <string>
 
-#include "runtime/IPlugin.h"
-#include "runtime/PluginFactory.h"
+#include "runtime/PluginHandle.h"
 
-PluginHandle PluginLoader::load(const std::string& path)
+class PluginLoader
 {
-    PluginHandle handle;
+public:
 
-    return handle;
-}
+    PluginHandle load(
+        const std::string& path
+    );
 
-void PluginLoader::unload(PluginHandle& plugin)
-{
-}
+    void unload(
+        PluginHandle& plugin
+    );
+};
