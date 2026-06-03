@@ -5,6 +5,8 @@
 #include "MulCommand.h"
 #include "DivCommand.h"
 
+#include "runtime/IPlugin.h"
+
 bool NumericModule::initialize()
 {
     initialized = true;
@@ -26,4 +28,16 @@ std::vector<ICommand*> NumericModule::createCommands()
     commands.push_back(new DivCommand());
 
     return commands;
+}
+
+extern "C" __declspec(dllexport)
+IPlugin* CreatePlugin()
+{
+    return new NumericModule();
+}
+
+extern "C" __declspec(dllexport)
+void DestroyPlugin(IPlugin* plugin)
+{
+    delete plugin;
 }

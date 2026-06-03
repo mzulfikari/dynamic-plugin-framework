@@ -11,7 +11,7 @@ int main()
 
     try
     {
-        auto plugin = loader.load( "../plugins/NumericModule/Debug/NumericModule.dll");
+        auto plugin = loader.load("D:/dynamic-plugin-framework/build/plugins/NumericModule/Release/NumericModule.dll");
 
         if (!plugin.instance)
         {
