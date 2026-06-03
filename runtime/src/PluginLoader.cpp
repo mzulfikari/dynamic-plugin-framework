@@ -1,5 +1,5 @@
-#include "runtime/PluginLoader.h"
-#include "runtime/PluginHandle.h"
+#include "core/PluginLoader.h"
+#include "core/PluginHandle.h"
 
 #include <windows.h>
 #include <iostream>

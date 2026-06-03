@@ -8,7 +8,7 @@ add_library(NumericModule SHARED
 
 target_include_directories(NumericModule PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/runtime/include
+    ${CMAKE_SOURCE_DIR}/core/include
 )
 
 target_link_libraries(NumericModule PRIVATE runtime)

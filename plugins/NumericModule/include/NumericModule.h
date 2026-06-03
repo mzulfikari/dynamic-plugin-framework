@@ -1,6 +1,6 @@
 #pragma once
 
-#include "runtime/IPlugin.h"
+#include "core/IPlugin.h"
 
 class NumericModule : public IPlugin
 {

@@ -5,7 +5,7 @@
 #include "MulCommand.h"
 #include "DivCommand.h"
 
-#include "runtime/IPlugin.h"
+#include "core/IPlugin.h"
 
 bool NumericModule::initialize()
 {

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "runtime/ICommand.h"
+#include "core/ICommand.h"
 
 class IPlugin
 {

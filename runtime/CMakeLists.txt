@@ -4,5 +4,6 @@ add_library(runtime STATIC
 )
 
 target_include_directories(runtime PUBLIC
-    include
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/core
 )

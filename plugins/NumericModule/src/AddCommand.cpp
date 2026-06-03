@@ -1,5 +1,7 @@
 #include "AddCommand.h"
 
+#include <stdexcept>
+
 std::string AddCommand::name() const
 {
     return "add";
@@ -7,10 +9,21 @@ std::string AddCommand::name() const
 
 std::string AddCommand::description() const
 {
-    return "Adds two numbers";
+    return "Adds two integers";
 }
 
-int AddCommand::execute(const std::vector<int>& args)
+std::string AddCommand::usage() const
 {
-    return args[0] + args[1];
+    return "add <a> <b>";
+}
+
+RuntimeValue AddCommand::execute(const std::vector<RuntimeValue>& args)
+{
+    if (args.size() < 2)
+        throw std::runtime_error("add requires 2 arguments");
+
+    int a = std::get<int>(args[0]);
+    int b = std::get<int>(args[1]);
+
+    return a + b;
 }

@@ -1,5 +1,7 @@
 #include "SubCommand.h"
 
+#include <variant>
+
 std::string SubCommand::name() const
 {
     return "sub";
@@ -10,10 +12,20 @@ std::string SubCommand::description() const
     return "Subtract two numbers";
 }
 
-int SubCommand::execute(const std::vector<int>& args)
+std::string SubCommand::usage() const
+{
+    return "sub <a> <b>";
+}
+
+RuntimeValue SubCommand::execute(
+    const std::vector<RuntimeValue>& args
+)
 {
     if (args.size() < 2)
         return 0;
 
-    return args[0] - args[1];
+    int a = std::get<int>(args[0]);
+    int b = std::get<int>(args[1]);
+
+    return a - b;
 }

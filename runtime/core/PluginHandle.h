@@ -1,8 +1,7 @@
 #pragma once
 
 #include <windows.h>
-
-class IPlugin;
+#include "IPlugin.h"
 
 using CreatePluginFn = IPlugin* (*)();
 using DestroyPluginFn = void(*)(IPlugin*);

@@ -1,11 +1,15 @@
 #pragma once
-
+#pragma once
 #include <string>
-#include "runtime/PluginHandle.h"
+#include "PluginHandle.h"   // ❗ full definition here
+#include <string>
+
+struct PluginHandle;
 
 class PluginLoader
 {
 public:
     PluginHandle load(const std::string& path);
     void unload(PluginHandle& plugin);
+
 };

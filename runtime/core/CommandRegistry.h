@@ -1,18 +1,18 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <memory>
+#include <vector>
 #include <unordered_map>
 
-#include "runtime/ICommand.h"
+#include "ICommand.h"
 
 class CommandRegistry
 {
 public:
-    bool add(std::unique_ptr<ICommand> cmd);
+    void add(std::unique_ptr<ICommand> cmd);
 
-    ICommand* find(const std::string& name) const;
+    ICommand* find(const std::string& name);
 
     std::vector<std::string> list() const;
 

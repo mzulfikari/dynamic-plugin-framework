@@ -1,6 +1,6 @@
 #pragma once
 
-#include "runtime/ICommand.h"
+#include "core/ICommand.h"
 
 class MulCommand : public ICommand
 {
@@ -10,7 +10,9 @@ public:
 
     std::string description() const override;
 
-    int execute(
-        const std::vector<int>& args
+    std::string usage() const override;
+
+    RuntimeValue execute(
+        const std::vector<RuntimeValue>& args
     ) override;
 };

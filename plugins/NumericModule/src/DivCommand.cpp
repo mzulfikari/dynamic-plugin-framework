@@ -1,5 +1,7 @@
 #include "DivCommand.h"
 
+#include <variant>
+
 std::string DivCommand::name() const
 {
     return "div";
@@ -10,10 +12,23 @@ std::string DivCommand::description() const
     return "Divide two numbers";
 }
 
-int DivCommand::execute(const std::vector<int>& args)
+std::string DivCommand::usage() const
 {
-    if (args.size() < 2 || args[1] == 0)
+    return "div <a> <b>";
+}
+
+RuntimeValue DivCommand::execute(
+    const std::vector<RuntimeValue>& args
+)
+{
+    if (args.size() < 2)
         return 0;
 
-    return args[0] / args[1];
+    int a = std::get<int>(args[0]);
+    int b = std::get<int>(args[1]);
+
+    if (b == 0)
+        return 0;
+
+    return a / b;
 }

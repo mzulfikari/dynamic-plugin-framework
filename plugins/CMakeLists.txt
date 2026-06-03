@@ -7,5 +7,5 @@ add_library(NumericModule SHARED
 target_link_libraries(NumericModule PRIVATE runtime)
 
 target_include_directories(NumericModule PRIVATE
-    ../../runtime/include
+    ../../core/include
 )
