@@ -18,11 +18,15 @@ void printHelp(CommandRegistry& registry)
     for (const auto& n : names)
     {
         auto cmd = registry.find(n);
+
         if (cmd)
         {
-            std::cout << "  " << cmd->name()
-                      << "\t" << cmd->description()
-                      << "\n";
+            std::cout
+                << "  "
+                << cmd->name()
+                << "\t"
+                << cmd->description()
+                << "\n";
         }
     }
 
@@ -33,7 +37,9 @@ void printHelp(CommandRegistry& registry)
     std::cout << "  host.exe (interactive mode)\n\n";
 }
 
-int executeCommand(CommandRegistry& registry, const std::string& line)
+int executeCommand(
+    CommandRegistry& registry,
+    const std::string& line)
 {
     std::stringstream ss(line);
 
@@ -44,92 +50,167 @@ int executeCommand(CommandRegistry& registry, const std::string& line)
         return 0;
 
     std::vector<RuntimeValue> args;
-    int value;
 
-    while (ss >> value)
-        args.push_back(value);
+    std::string token;
+
+    while (ss >> token)
+    {
+        try
+        {
+            size_t pos = 0;
+
+            int value =
+                std::stoi(token, &pos);
+
+            if (pos == token.size())
+            {
+                args.push_back(value);
+            }
+            else
+            {
+                args.push_back(token);
+            }
+        }
+        catch (...)
+        {
+            args.push_back(token);
+        }
+    }
 
     auto cmd = registry.find(cmdName);
 
     if (!cmd)
     {
-        std::cout << "Command not found\n";
+        std::cout
+            << "Command not found\n";
+
         return 1;
     }
 
-    RuntimeValue result = cmd->execute(args);
+    RuntimeValue result =
+        cmd->execute(args);
 
     if (std::holds_alternative<int>(result))
     {
-        std::cout << std::get<int>(result) << "\n";
+        std::cout
+            << std::get<int>(result)
+            << "\n";
     }
-    else if (std::holds_alternative<std::string>(result))
+    else if (
+        std::holds_alternative<std::string>(
+            result))
     {
-        std::cout << std::get<std::string>(result) << "\n";
+        std::cout
+            << std::get<std::string>(result)
+            << "\n";
     }
 
     return 0;
 }
 
-int main(int argc, char** argv)
+int main(
+    int argc,
+    char** argv)
 {
     CommandRegistry registry;
     PluginLoader loader;
 
+    std::vector<PluginHandle> loadedPlugins;
+
     try
     {
-        // =========================
-        // FIXED PLUGIN PATH
-        // =========================
-        std::filesystem::path pluginPath =
+        std::filesystem::path pluginRoot =
             std::filesystem::current_path()
             / "build"
-            / "plugins"
-            / "NumericModule"
-            / "Release"
-            / "NumericModule.dll";
+            / "plugins";
 
-        // =========================
-        // DEBUG INFO
-        // =========================
-        std::cout << "=============================\n";
-        std::cout << "PLUGIN DEBUG INFO\n";
-        std::cout << "CWD: " << std::filesystem::current_path() << "\n";
-        std::cout << "PLUGIN PATH: " << pluginPath << "\n";
-        std::cout << "=============================\n";
+        std::cout
+            << "=============================\n";
+        std::cout
+            << "PLUGIN DEBUG INFO\n";
+        std::cout
+            << "CWD: "
+            << std::filesystem::current_path()
+            << "\n";
+        std::cout
+            << "PLUGIN ROOT: "
+            << pluginRoot
+            << "\n";
+        std::cout
+            << "=============================\n";
 
-        std::cout << "TRY LOAD: " << pluginPath.string() << "\n";
-
-        // =========================
-        // LOAD PLUGIN
-        // =========================
-        auto plugin = loader.load(pluginPath.string());
-
-        if (!plugin.instance)
+        for (const auto& entry :
+             std::filesystem::recursive_directory_iterator(
+                 pluginRoot))
         {
-            std::cout << "Plugin load failed\n";
+            if (!entry.is_regular_file())
+                continue;
+
+            if (entry.path().extension() != ".dll")
+                continue;
+
+            std::cout
+                << "TRY LOAD: "
+                << entry.path().string()
+                << "\n";
+
+            try
+            {
+                auto plugin =
+                    loader.load(
+                        entry.path().string());
+
+                if (!plugin.instance)
+                {
+                    std::cout
+                        << "Plugin load failed\n";
+                    continue;
+                }
+
+                plugin.instance->initialize();
+
+                auto commands =
+                    plugin.instance
+                        ->createCommands();
+
+                for (auto* cmd : commands)
+                {
+                    registry.add(
+                        std::unique_ptr<ICommand>(
+                            cmd));
+                }
+
+                loadedPlugins.push_back(
+                    std::move(plugin));
+
+                std::cout
+                    << "Loaded successfully\n";
+            }
+            catch (const std::exception& ex)
+            {
+                std::cout
+                    << "Failed: "
+                    << ex.what()
+                    << "\n";
+            }
+        }
+
+        if (loadedPlugins.empty())
+        {
+            std::cout
+                << "No plugins loaded\n";
+
             return 1;
         }
 
-        plugin.instance->initialize();
-
-        auto commands = plugin.instance->createCommands();
-
-        for (auto& cmd : commands)
-        {
-            registry.add(std::unique_ptr<ICommand>(cmd));
-        }
-
-        std::cout << "Plugin loaded successfully\n";
-
-        // =========================
-        // CLI MODE
-        // =========================
         if (argc > 1)
         {
-            std::string arg1 = argv[1];
+            std::string arg1 =
+                argv[1];
 
-            if (arg1 == "--help" || arg1 == "help")
+            if (
+                arg1 == "--help" ||
+                arg1 == "help")
             {
                 printHelp(registry);
                 return 0;
@@ -137,55 +218,82 @@ int main(int argc, char** argv)
 
             if (arg1 == "list")
             {
-                auto names = registry.list();
+                auto names =
+                    registry.list();
 
                 for (const auto& n : names)
-                    std::cout << n << "\n";
+                {
+                    std::cout
+                        << n
+                        << "\n";
+                }
 
                 return 0;
             }
 
             std::stringstream line;
 
-            for (int i = 1; i < argc; i++)
-                line << argv[i] << " ";
+            for (
+                int i = 1;
+                i < argc;
+                ++i)
+            {
+                line
+                    << argv[i]
+                    << " ";
+            }
 
-            return executeCommand(registry, line.str());
+            return executeCommand(
+                registry,
+                line.str());
         }
 
-        // =========================
-        // REPL MODE
-        // =========================
-        std::cout << "\nType '--help' for commands\n";
-        std::cout << "Type 'exit' to quit\n\n";
+        std::cout
+            << "\nType '--help' for commands\n";
+
+        std::cout
+            << "Type 'exit' to quit\n\n";
 
         while (true)
         {
             std::cout << "> ";
+
             std::string line;
-            std::getline(std::cin, line);
+
+            std::getline(
+                std::cin,
+                line);
 
             if (line == "exit")
                 break;
 
-            if (line == "help" || line == "list")
+            if (
+                line == "help" ||
+                line == "list")
             {
                 printHelp(registry);
                 continue;
             }
 
-            executeCommand(registry, line);
+            executeCommand(
+                registry,
+                line);
         }
 
-        // =========================
-        // CLEANUP
-        // =========================
-        plugin.instance->shutdown();
-        loader.unload(plugin);
+        for (auto& plugin : loadedPlugins)
+        {
+            plugin.instance->shutdown();
+            loader.unload(plugin);
+        }
     }
-    catch (const std::exception& ex)
+    catch (
+        const std::exception& ex)
     {
-        std::cout << "Error: " << ex.what() << "\n";
+        std::cout
+            << "Error: "
+            << ex.what()
+            << "\n";
+
         return 1;
     }
 

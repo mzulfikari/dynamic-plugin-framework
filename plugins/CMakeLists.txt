@@ -1,11 +1,14 @@
-add_library(NumericModule SHARED
-    NumericPlugin.cpp
-    AddCommand.cpp
-    PluginExports.cpp
+add_library(StringModule SHARED
+    StringPlugin.cpp
+    StringModule.cpp
+    commands/UpperCommand.cpp
+    commands/LowerCommand.cpp
+    commands/LengthCommand.cpp
+    commands/ConcatCommand.cpp
+    commands/ReverseCommand.cpp
 )
 
-target_link_libraries(NumericModule PRIVATE runtime)
-
-target_include_directories(NumericModule PRIVATE
-    ../../core/include
+target_include_directories(StringModule PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ../../runtime
 )
