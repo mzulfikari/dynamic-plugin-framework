@@ -1,5 +1,5 @@
 #include "NumericModule.h"
-
+#include "core/IPlugin.h"
 #include "AddCommand.h"
 #include "SubCommand.h"
 #include "MulCommand.h"
@@ -46,4 +46,11 @@ std::vector<ICommand*> NumericModule::createCommands()
     cmds.push_back(new IsPrimeCommand());
 
     return cmds;
+}
+
+
+extern "C" __declspec(dllexport)
+IPlugin* CreatePlugin()
+{
+    return new NumericModule();
 }

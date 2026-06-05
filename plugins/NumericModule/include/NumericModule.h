@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/IPlugin.h"
+#include <vector>
 
 class NumericModule : public IPlugin
 {
