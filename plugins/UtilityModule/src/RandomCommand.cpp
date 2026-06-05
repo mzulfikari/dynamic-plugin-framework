@@ -3,13 +3,12 @@
 
 std::string RandomCommand::name() const { return "random"; }
 std::string RandomCommand::description() const { return "generate random number"; }
-std::string RandomCommand::usage() const { return "random min max"; }
 std::string RandomCommand::category() const { return "utility"; }
 
 RuntimeValue RandomCommand::execute(const std::vector<RuntimeValue>& args)
 {
     int min = 0;
-    int max = 100;
+    int max = 9999999999;
 
     if (args.size() >= 2)
     {

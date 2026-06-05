@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <string>
 #include "PluginHandle.h"   // ❗ full definition here
 #include <string>

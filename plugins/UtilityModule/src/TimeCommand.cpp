@@ -4,7 +4,6 @@
 
 std::string TimeCommand::name() const { return "time"; }
 std::string TimeCommand::description() const { return "current system time"; }
-std::string TimeCommand::usage() const { return "time"; }
 std::string TimeCommand::category() const { return "utility"; }
 
 RuntimeValue TimeCommand::execute(const std::vector<RuntimeValue>& args)

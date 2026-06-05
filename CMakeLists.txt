@@ -6,5 +6,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(runtime)
 add_subdirectory(host)
-add_subdirectory(plugins/NumericModule)
-add_subdirectory(plugins/StringModule)
+add_subdirectory(plugins)

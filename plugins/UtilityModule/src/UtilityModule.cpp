@@ -4,11 +4,34 @@
 #include "TimeCommand.h"
 #include "RandomCommand.h"
 
-#include "CommandRegistry.h"
-
-void registerUtilityModule(CommandRegistry& registry)
+bool UtilityModule::initialize()
 {
-    registry.add(std::make_unique<EchoCommand>());
-    registry.add(std::make_unique<TimeCommand>());
-    registry.add(std::make_unique<RandomCommand>());
+    return true;
+}
+
+void UtilityModule::shutdown()
+{
+}
+
+std::vector<ICommand*> UtilityModule::createCommands()
+{
+    std::vector<ICommand*> cmds;
+
+    cmds.push_back(new EchoCommand());
+    cmds.push_back(new TimeCommand());
+    cmds.push_back(new RandomCommand());
+
+    return cmds;
+}
+
+extern "C" __declspec(dllexport)
+IPlugin* CreatePlugin()
+{
+    return new UtilityModule();
+}
+
+extern "C" __declspec(dllexport)
+void DestroyPlugin(IPlugin* plugin)
+{
+    delete plugin;
 }

@@ -1,14 +1,9 @@
-add_library(StringModule SHARED
-    StringPlugin.cpp
-    StringModule.cpp
-    commands/UpperCommand.cpp
-    commands/LowerCommand.cpp
-    commands/LengthCommand.cpp
-    commands/ConcatCommand.cpp
-    commands/ReverseCommand.cpp
+set(PLUGIN_MODULES
+    NumericModule
+    StringModule
+    UtilityModule
 )
 
-target_include_directories(StringModule PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ../../runtime
-)
+foreach(module ${PLUGIN_MODULES})
+    add_subdirectory(${module})
+endforeach()
