@@ -1,29 +1,14 @@
 #include "AddCommand.h"
+#include <variant>
 
-#include <stdexcept>
-
-std::string AddCommand::name() const
-{
-    return "add";
-}
-
-std::string AddCommand::description() const
-{
-    return "Adds two integers";
-}
-
-std::string AddCommand::usage() const
-{
-    return "add <a> <b>";
-}
+std::string AddCommand::name() const { return "add"; }
+std::string AddCommand::description() const { return "add two numbers"; }
+std::string AddCommand::usage() const { return "add a b"; }
+std::string AddCommand::category() const { return "numeric"; }
 
 RuntimeValue AddCommand::execute(const std::vector<RuntimeValue>& args)
 {
-    if (args.size() < 2)
-        throw std::runtime_error("add requires 2 arguments");
+    if (args.size() < 2) return 0;
 
-    int a = std::get<int>(args[0]);
-    int b = std::get<int>(args[1]);
-
-    return a + b;
+    return std::get<int>(args[0]) + std::get<int>(args[1]);
 }

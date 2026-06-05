@@ -1,8 +1,8 @@
 #pragma once
 
-#include "core/ICommand.h"
+#include "ICommand.h"
 
-class ConcatCommand : public ICommand
+class SqrtCommand : public ICommand
 {
 public:
     std::string name() const override;

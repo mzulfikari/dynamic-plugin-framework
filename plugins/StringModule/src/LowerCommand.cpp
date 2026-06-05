@@ -3,17 +3,18 @@
 #include <cctype>
 
 std::string LowerCommand::name() const { return "lower"; }
-
-std::string LowerCommand::description() const { return "Convert string to lowercase"; }
-
-std::string LowerCommand::usage() const { return "lower <text>"; }
+std::string LowerCommand::description() const { return "convert to lowercase"; }
+std::string LowerCommand::usage() const { return "lower text"; }
+std::string LowerCommand::category() const { return "string"; }
 
 RuntimeValue LowerCommand::execute(const std::vector<RuntimeValue>& args)
 {
-    std::string text = std::get<std::string>(args[0]);
+    if (args.empty()) return std::string("");
 
-    std::transform(text.begin(), text.end(), text.begin(),
-                   [](unsigned char c){ return std::tolower(c); });
+    std::string s = std::get<std::string>(args[0]);
 
-    return text;
+    std::transform(s.begin(), s.end(), s.begin(),
+        [](unsigned char c) { return std::tolower(c); });
+
+    return s;
 }

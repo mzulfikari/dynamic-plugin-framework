@@ -2,7 +2,7 @@
 
 #include "core/ICommand.h"
 
-class ConcatCommand : public ICommand
+class RandomCommand : public ICommand
 {
 public:
     std::string name() const override;

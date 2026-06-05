@@ -4,40 +4,39 @@
 #include "SubCommand.h"
 #include "MulCommand.h"
 #include "DivCommand.h"
+#include "ModCommand.h"
+#include "PowCommand.h"
+#include "SqrtCommand.h"
+#include "AbsCommand.h"
+#include "MaxCommand.h"
+#include "MinCommand.h"
+#include "SumListCommand.h"
+#include "AvgCommand.h"
+#include "FactCommand.h"
+#include "IsPrimeCommand.h"
 
-#include "core/IPlugin.h"
+void NumericModule::initialize() {}
 
-bool NumericModule::initialize()
-{
-    initialized = true;
-    return true;
-}
-
-void NumericModule::shutdown()
-{
-    initialized = false;
-}
+void NumericModule::shutdown() {}
 
 std::vector<ICommand*> NumericModule::createCommands()
 {
-    std::vector<ICommand*> commands;
+    std::vector<ICommand*> cmds;
 
-    commands.push_back(new AddCommand());
-    commands.push_back(new SubCommand());
-    commands.push_back(new MulCommand());
-    commands.push_back(new DivCommand());
+    cmds.push_back(new AddCommand());
+    cmds.push_back(new SubCommand());
+    cmds.push_back(new MulCommand());
+    cmds.push_back(new DivCommand());
+    cmds.push_back(new ModCommand());
+    cmds.push_back(new PowCommand());
+    cmds.push_back(new SqrtCommand());
+    cmds.push_back(new AbsCommand());
+    cmds.push_back(new MaxCommand());
+    cmds.push_back(new MinCommand());
+    cmds.push_back(new SumListCommand());
+    cmds.push_back(new AvgCommand());
+    cmds.push_back(new FactCommand());
+    cmds.push_back(new IsPrimeCommand());
 
-    return commands;
-}
-
-extern "C" __declspec(dllexport)
-IPlugin* CreatePlugin()
-{
-    return new NumericModule();
-}
-
-extern "C" __declspec(dllexport)
-void DestroyPlugin(IPlugin* plugin)
-{
-    delete plugin;
+    return cmds;
 }
