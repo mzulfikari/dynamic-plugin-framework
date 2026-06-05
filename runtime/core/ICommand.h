@@ -11,10 +11,7 @@ public:
 
     virtual std::string name() const = 0;
     virtual std::string description() const = 0;
-    virtual std::string usage() const = 0;
     virtual std::string category() const = 0;
 
-    virtual RuntimeValue execute(
-        const std::vector<RuntimeValue>& args
-    ) = 0;
+    virtual RuntimeValue execute(const std::vector<RuntimeValue>& args) = 0;
 };

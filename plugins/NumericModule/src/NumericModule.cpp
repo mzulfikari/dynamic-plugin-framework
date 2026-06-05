@@ -15,13 +15,20 @@
 #include "FactCommand.h"
 #include "IsPrimeCommand.h"
 
-void NumericModule::initialize() {}
+bool NumericModule::initialize()
+{
+    return true;
+}
 
-void NumericModule::shutdown() {}
+void NumericModule::shutdown()
+{
+}
 
 std::vector<ICommand*> NumericModule::createCommands()
 {
     std::vector<ICommand*> cmds;
+
+    cmds.reserve(14);
 
     cmds.push_back(new AddCommand());
     cmds.push_back(new SubCommand());

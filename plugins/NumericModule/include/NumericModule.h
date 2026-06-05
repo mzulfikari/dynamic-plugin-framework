@@ -5,7 +5,8 @@
 class NumericModule : public IPlugin
 {
 public:
-    void initialize() override;
+    bool initialize() override;
     void shutdown() override;
+
     std::vector<ICommand*> createCommands() override;
 };

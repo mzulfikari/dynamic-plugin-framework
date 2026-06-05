@@ -9,12 +9,11 @@
 
 bool StringPlugin::initialize()
 {
-    // init if needed
     return true;
 }
+
 void StringPlugin::shutdown()
 {
-    // cleanup if needed
 }
 
 // ============================
@@ -24,6 +23,7 @@ void StringPlugin::shutdown()
 std::vector<ICommand*> StringPlugin::createCommands()
 {
     std::vector<ICommand*> cmds;
+    cmds.reserve(2);
 
     cmds.push_back(new UpperCommand());
     cmds.push_back(new LowerCommand());
@@ -32,18 +32,16 @@ std::vector<ICommand*> StringPlugin::createCommands()
 }
 
 // ============================
-// DLL EXPORTS (IMPORTANT)
+// DLL EXPORTS
 // ============================
 
-extern "C"
-__declspec(dllexport)
+extern "C" __declspec(dllexport)
 IPlugin* CreatePlugin()
 {
     return new StringPlugin();
 }
 
-extern "C"
-__declspec(dllexport)
+extern "C" __declspec(dllexport)
 void DestroyPlugin(IPlugin* plugin)
 {
     delete plugin;
