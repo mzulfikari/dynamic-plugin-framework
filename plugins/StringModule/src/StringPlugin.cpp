@@ -2,6 +2,13 @@
 
 #include "UpperCommand.h"
 #include "LowerCommand.h"
+#include "LengthCommand.h"
+#include "ConcatCommand.h"
+#include "ReverseCommand.h"
+#include "ContainsCommand.h"
+#include "ReplaceCommand.h"
+#include "SubstrCommand.h"
+#include "CapitalizeCommand.h"
 
 // ============================
 // Plugin lifecycle
@@ -23,10 +30,19 @@ void StringPlugin::shutdown()
 std::vector<ICommand*> StringPlugin::createCommands()
 {
     std::vector<ICommand*> cmds;
-    cmds.reserve(2);
 
     cmds.push_back(new UpperCommand());
     cmds.push_back(new LowerCommand());
+
+    cmds.push_back(new LengthCommand());
+    cmds.push_back(new ConcatCommand());
+    cmds.push_back(new ReverseCommand());
+
+    cmds.push_back(new ContainsCommand());
+    cmds.push_back(new ReplaceCommand());
+    cmds.push_back(new SubstrCommand());
+
+    cmds.push_back(new CapitalizeCommand());
 
     return cmds;
 }
