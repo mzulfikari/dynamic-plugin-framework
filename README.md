@@ -18,24 +18,11 @@ It enables building extensible systems such as game engines, automation tools, r
 
 ---
 
-## 🧠 Architecture
+## 📁 Project Structure
 
-```
-Host Application
-      │
-      ▼
-Plugin Loader (DLL/SO)
-      │
-      ▼
-Dynamic Plugins
-(Numeric | String | Custom Modules)
-      │
-      ▼
-Command Registry
-      │
-      ▼
-Runtime Execution
-```
+<p align="center">
+  <img src="docs/Folder%20Structure.png" width="900"/>
+</p>
 
 ---
 
