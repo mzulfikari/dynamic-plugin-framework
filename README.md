@@ -135,6 +135,13 @@ Core system is stable. Plugin system is actively expanding.
 
 ---
 
+
 ## 📄 License
 
 MIT License © 2026
+
+---
+
+## 👨‍💻 Author
+
+Developed as a software architecture learning project focused on modular and extensible system design.
