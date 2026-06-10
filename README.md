@@ -37,22 +37,7 @@ It enables building extensible systems such as game engines, automation tools, r
 
 ---
 
-## 📁 Project Structure
 
-```
-dynamic-plugin-framework/
-├── app/
-├── runtime/
-│   ├── include/
-│   └── src/
-├── plugins/
-│   ├── NumericModule/
-│   ├── StringModule/
-├── build/
-└── CMakeLists.txt
-```
-
----
 
 ## 🚀 How It Works
 
